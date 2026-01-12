@@ -12,7 +12,7 @@ const Contact = () => {
         
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center space-y-6">
           <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight uppercase leading-none">
-            Covenant <span className="text-brand-red">Connection</span>
+            Stay  <span className="text-brand-red">Connected</span>
           </h1>
           <p className="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed font-medium">
             Join the global network of intercessors. Reach out for prayer, partnership, or to join a House-To-House cell.
@@ -32,8 +32,8 @@ const Contact = () => {
 
             <div className="space-y-4">
               {[
-                { label: 'Prayer Chapel', value: '123 Faith Avenue, City of Praise, CP 12345', icon: MapPin },
-                { label: 'Prophetic Line', value: '+1 (234) 567-890', icon: Phone },
+                { label: 'Prayer Chapel', value: 'Praise Chapel College, Ogbomoso', icon: MapPin },
+                { label: 'Prophetic Line', value: '+234 (0) 123 456 7890', icon: Phone },
                 { label: 'Electronic Mail', value: 'contact@praisechapel.org', icon: Mail },
                 { label: 'Ministries Hours', value: 'Mon - Fri: 9:00 AM - 5:00 PM', icon: Clock },
               ].map((item, i) => (
@@ -50,7 +50,7 @@ const Contact = () => {
             </div>
 
             <div className="pt-8 space-y-6">
-              <h3 className="text-xs font-black text-white uppercase tracking-[0.2em]">Covenant Platforms</h3>
+              <h3 className="text-xs font-black text-white uppercase tracking-[0.2em]">Our Platforms</h3>
               <div className="flex gap-4">
                 {[Facebook, Twitter, Instagram, Globe].map((Icon, i) => (
                   <a key={i} href="#" className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-white hover:bg-brand-red hover:border-brand-red transition-all">
@@ -120,27 +120,50 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Map Placeholder */}
-      <section className="h-96 w-full bg-zinc-950 relative border-t border-zinc-900">
-        <div className="absolute inset-0 grayscale contrast-125 opacity-20">
-          <img 
-            src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80&w=2000" 
-            alt="Map view" 
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="p-8 rounded-3xl bg-zinc-950/90 backdrop-blur-md border border-zinc-800 text-center space-y-4 shadow-2xl max-w-sm">
-            <div className="w-16 h-16 bg-brand-red rounded-full flex items-center justify-center text-white mx-auto animate-bounce shadow-xl shadow-brand-red/50">
-              <MapPin size={32} />
+      {/* REAL MAP SECTION - UPDATED */}
+      <section className="h-96 w-full bg-zinc-950 relative border-t border-zinc-900 overflow-hidden">
+        {/* Map Iframe */}
+        <iframe 
+          width="100%" 
+          height="100%" 
+          frameBorder="0" 
+          title="Praise Chapel Location" 
+          scrolling="no" 
+          marginHeight="0" 
+          marginWidth="0" 
+          // Grayscale filter for Dark Theme
+          className="w-full h-full grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700 ease-in-out"
+          // Updated SRC to point to Praise Chapel College, Ogbomoso
+          src="https://maps.google.com/maps?q=Praise+Chapel+College+Ogbomoso+Oyo+State&t=&z=13&ie=UTF8&iwloc=&output=embed"
+        ></iframe>
+
+        {/* Floating Location Card - Corrected Address */}
+        <div className="absolute bottom-6 left-6 md:left-12 max-w-xs w-full pointer-events-none">
+          <div className="p-6 rounded-2xl bg-zinc-950/90 backdrop-blur-md border border-zinc-800 shadow-2xl space-y-4 pointer-events-auto">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-brand-red/20 rounded-full flex items-center justify-center text-brand-red shrink-0">
+                <MapPin size={20} />
+              </div>
+              <div>
+
+
+                <h4 className="text-sm font-black text-white uppercase tracking-tight leading-none mb-2">Praise Chapel College</h4>
+                <p className="text-zinc-400 text-xs font-medium leading-relaxed">
+                  Papa Adeyemo Area,<br />
+                  9 Ogbomoso,<br />
+                  Oyo State, Nigeria.
+                </p>
+              </div>
             </div>
-            <div>
-              <h4 className="text-lg font-black text-white uppercase tracking-tight leading-none mb-1">Visit the Chapel</h4>
-              <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest">123 Faith Avenue, City of Praise</p>
-            </div>
-            <button className="text-brand-green font-black uppercase tracking-widest text-[10px] hover:text-brand-red transition-colors">
-              Prophetic Directions
-            </button>
+            
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=Praise+Chapel+College+Ogbomoso" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block w-full text-center py-2 rounded-lg bg-white/5 hover:bg-brand-red hover:text-white border border-white/10 transition-all text-[10px] font-black uppercase tracking-widest text-zinc-300"
+            >
+              Get Directions
+            </a>
           </div>
         </div>
       </section>

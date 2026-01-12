@@ -14,6 +14,7 @@ import Books from './pages/Books';
 import Meditation from './pages/Meditation';
 import Lessons from './pages/Lessons';
 import Tracts from './pages/Tracts';
+import DailyCharge from './pages/DailyCharge';
 import './App.css';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path="/resources/meditation" element={<Meditation />} />
           <Route path="/resources/lessons" element={<Lessons />} />
           <Route path="/resources/tracts" element={<Tracts />} />
+          <Route path="/resources/daily-charge" element={<DailyCharge />} />
         </Routes>
       </main>
       <Footer />

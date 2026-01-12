@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Book, PenTool, Heart, GraduationCap, FileText, ArrowRight } from 'lucide-react';
+import { Book, PenTool, Heart, GraduationCap, FileText, ArrowRight, Zap } from 'lucide-react';
 
 const Resources = () => {
   const resourceLinks = [
@@ -9,6 +9,7 @@ const Resources = () => {
     { name: "Bible Meditation", path: "/resources/meditation", icon: Heart, color: "brand-red", desc: "Quiet moments in the presence of the Word." },
     { name: "Bible Study Lessons", path: "/resources/lessons", icon: GraduationCap, color: "brand-green", desc: "Structured learning for every stage of faith." },
     { name: "Evangelism Tracts", path: "/resources/tracts", icon: FileText, color: "brand-red", desc: "Powerful tools for sharing the Gospel message." },
+    { name: "Daily Charge", path: "/resources/daily-charge", icon: Zap, color: "brand-green", desc: "Daily spiritual fuel to keep your fire burning." },
   ];
 
   return (

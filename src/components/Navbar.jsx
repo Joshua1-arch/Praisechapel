@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  Home, Info, PlayCircle, Calendar, DollarSign, Mail, Menu, X, Radio, Globe, 
-  ChevronDown, BookOpen, Search, Facebook, Instagram, Youtube 
+  Menu, X, ChevronDown, Search, Heart, 
+  MapPin, Calendar, PlayCircle, BookOpen, 
+  FileText, Headphones, Book, Globe, Send, Zap,
+  Home, Info, Radio, Facebook, Instagram, Youtube
 } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [mobileMenuLevel, setMobileMenuLevel] = useState(0); // 0: Main, 1: Resources
   const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
 
+  // Search Index
   const searchableContent = [
     { label: 'Home', path: '/', category: 'Page' },
     { label: 'About Us', path: '/about', category: 'Page' },
@@ -26,6 +30,7 @@ const Navbar = () => {
     { label: 'Bible Meditation', path: '/resources/meditation', category: 'Resources' },
     { label: 'Bible Study Lessons', path: '/resources/lessons', category: 'Resources' },
     { label: 'Evangelism Tracts', path: '/resources/tracts', category: 'Resources' },
+    { label: 'Daily Charge', path: '/resources/daily-charge', category: 'Resources' },
   ];
 
   const filteredResults = searchQuery.trim() === '' 
@@ -35,6 +40,7 @@ const Navbar = () => {
         item.category.toLowerCase().includes(searchQuery.toLowerCase())
       );
 
+  // Keyboard Shortcuts
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -49,229 +55,281 @@ const Navbar = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Handle Scroll Effect
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { path: '/', label: 'Home', icon: Home },
-    { path: '/about', label: 'About', icon: Info },
-    { path: '/sermons', label: 'Sermons', icon: PlayCircle },
-    { path: '/events', label: 'Events', icon: Calendar },
+  // Lock body scroll when mobile menu or search is open
+  useEffect(() => {
+    if (isOpen || isSearchOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpen, isSearchOpen]);
+
+  // FULL Navigation Structure
+  const navigation = [
+    { name: 'Home', path: '/', icon: Home },
+    { name: 'About', path: '/about', icon: Info },
+    { name: 'Sermons', path: '/sermons', icon: PlayCircle },
+    { name: 'Events', path: '/events', icon: Calendar },
     { 
-      label: 'Resources', 
+      name: 'Resources', 
+      path: '/resources',
       icon: BookOpen,
       children: [
-        { path: '/resources/blog', label: 'Blog' },
-        { path: '/resources/books', label: 'Books & Publications' },
-        { path: '/resources/meditation', label: 'Bible Meditation' },
-        { path: '/resources/lessons', label: 'Bible Study Lessons' },
-        { path: '/resources/tracts', label: 'Tracts' },
+        { name: 'Prophetic Blog', path: '/resources/blog', icon: FileText },
+        { name: 'Books & Publications', path: '/resources/books', icon: Book },
+        { name: 'Bible Meditation', path: '/resources/meditation', icon: Headphones },
+        { name: 'Study Lessons', path: '/resources/lessons', icon: BookOpen },
+        { name: 'Evangelism Tracts', path: '/resources/tracts', icon: Send },
+        { name: 'Daily Charge', path: '/resources/daily-charge', icon: Zap },
       ]
     },
-    { path: '/branches', label: 'Branches', icon: Globe },
-    { path: '/give', label: 'Give', icon: DollarSign },
-    { path: '/contact', label: 'Contact', icon: Mail },
+    { name: 'Branches', path: '/branches', icon: Globe },
+    { name: 'Contact', path: '/contact', icon: Send },
   ];
 
-  const isActive = (path) => location.pathname === path;
-
   return (
-    <nav className={`sticky top-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-zinc-950/90 backdrop-blur-md shadow-xl py-2' : 'bg-zinc-950 py-4'
-    }`}>
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-12 h-12 relative overflow-hidden rounded-lg">
-            <img 
-              src="/logo.png" 
-              alt="The Praise Chapel Logo" 
-              className="w-full h-full object-contain"
-            />
-          </div>
+    <>
+      {/* Top Announcement Bar */}
+      <div className="bg-gradient-to-r from-brand-red to-red-900 text-white text-[10px] font-black uppercase tracking-[0.2em] py-2 text-center hidden md:block border-b border-white/10">
+        Join us for Sunday Service @ 9:00 AM • Papa Adeyemo, Ogbomoso
+      </div>
 
-        </Link>
+      <nav 
+        className={`sticky top-0 z-50 transition-all duration-300 border-b ${
+          scrolled 
+            ? 'bg-zinc-950/95 backdrop-blur-md py-3 border-zinc-900 shadow-xl' 
+            : 'bg-zinc-950 border-transparent py-5'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          
+          {/* 1. Logo Section */}
+          <Link to="/" className="flex items-center gap-3 z-50 group shrink-0">
+            <div className={`relative overflow-hidden transition-all duration-300 ${
+                scrolled ? 'h-10 w-10' : 'h-12 w-12'
+              }`}>
+              <img 
+                src="/logo.png" 
+                alt="Logo" 
+                className="w-full h-full object-contain"
+              />
+            </div>
+            {/* Hidden on small desktops to save space for the many links */}
+            <span className={`font-black uppercase tracking-tight leading-none text-white hidden xl:block ${
+              scrolled ? 'text-lg' : 'text-xl'
+            }`}>
+              Praise<span className="text-brand-red">Chapel</span>
+            </span>
+          </Link>
 
-        <ul className="hidden lg:flex items-center gap-5">
-          {navLinks.map((link) => (
-            <li key={link.label} className="relative group">
-              {link.children ? (
-                <div className="flex items-center gap-1 cursor-pointer">
-                  <span className={`text-[10px] font-black uppercase tracking-widest transition-colors hover:text-brand-red ${
-                    location.pathname.startsWith('/resources') ? 'text-brand-red' : 'text-zinc-300'
-                  }`}>
-                    {link.label}
-                  </span>
-                  <ChevronDown size={10} className="text-zinc-500 group-hover:text-brand-red transition-colors" />
-                  
-                  {/* Dropdown Menu */}
-                  <div className="absolute top-full left-0 mt-2 w-64 bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[60] overflow-hidden">
-                    <div className="p-2 flex flex-col">
-                      {link.children.map((child) => (
+          {/* 2. Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+            {navigation.map((item) => (
+              <div 
+                key={item.name} 
+                className="relative group h-full py-2"
+              >
+                <Link
+                  to={item.path}
+                  className={`text-[11px] font-black uppercase tracking-widest transition-colors flex items-center gap-1 ${
+                    location.pathname === item.path 
+                      ? 'text-brand-red' 
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  {item.name}
+                  {item.children && <ChevronDown size={12} className="group-hover:rotate-180 transition-transform duration-300" />}
+                </Link>
+
+                {/* Dropdown Menu */}
+                {item.children && (
+                  <div className="absolute top-full -left-4 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-2">
+                    <div className="bg-zinc-900 rounded-xl shadow-2xl border border-zinc-800 p-2 w-72 overflow-hidden">
+                      {item.children.map((child) => (
                         <Link
-                          key={child.path}
+                          key={child.name}
                           to={child.path}
-                          className={`px-4 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all hover:bg-brand-green/10 hover:text-brand-green ${
-                            isActive(child.path) ? 'text-brand-green bg-brand-green/5' : 'text-zinc-400'
-                          }`}
+                          className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-zinc-800 transition-colors group/item"
                         >
-                          {child.label}
+                          <div className="p-2 bg-brand-red/10 rounded-lg text-brand-red group-hover/item:bg-brand-red group-hover/item:text-white transition-colors">
+                            <child.icon size={16} />
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold text-white uppercase tracking-wider">{child.name}</div>
+                          </div>
                         </Link>
                       ))}
                     </div>
                   </div>
-                </div>
-              ) : (
-                <Link
-                  to={link.path}
-                  className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest transition-colors hover:text-brand-red ${
-                    isActive(link.path) ? 'text-brand-red border-b-2 border-brand-red pb-1' : 'text-zinc-300'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              )}
-            </li>
-          ))}
-          
-          {/* Divider */}
-          <div className="h-4 w-[1px] bg-zinc-800 mx-2"></div>
+                )}
+              </div>
+            ))}
+          </div>
 
-          {/* Utility & Social */}
-          <div className="flex items-center gap-4">
+          {/* 3. Action Buttons */}
+          <div className="hidden lg:flex items-center gap-4 shrink-0">
             <button 
               onClick={() => setIsSearchOpen(true)}
-              className="text-zinc-400 hover:text-brand-red transition-colors group relative"
+              className="p-2 text-zinc-400 hover:text-white transition-colors bg-zinc-900 border border-zinc-800 hover:border-brand-red rounded-xl group relative"
             >
-              <Search size={16} />
+              <Search size={18} className="group-hover:scale-110 transition-transform" />
               <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-zinc-900 text-[8px] px-2 py-1 rounded border border-zinc-800 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-zinc-500 font-bold uppercase tracking-widest">
                 Ctrl + K
               </span>
             </button>
-            <div className="flex items-center gap-3 border-l border-zinc-800 pl-4">
-              <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Facebook size={14} /></a>
-              <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Instagram size={14} /></a>
-              <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Youtube size={14} /></a>
-            </div>
-          </div>
-
-          <li>
+            <div className="h-6 w-px bg-zinc-800"></div>
             <Link 
-              to="/sermons" 
-              className="ml-2 bg-brand-green hover:bg-brand-green/90 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 shadow-lg shadow-brand-green/20 active:scale-95"
+              to="/give"
+              className="bg-brand-red text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-brand-red/20 hover:bg-red-600 hover:-translate-y-0.5 transition-all flex items-center gap-2"
             >
-              <Radio size={12} className="animate-pulse text-brand-red" />
-              Watch Live
+              <Heart size={14} fill="currentColor" />
+              Give
             </Link>
-          </li>
-        </ul>
-
-        {/* Mobile Toggle */}
-        <button 
-          className="lg:hidden p-2 text-zinc-300 hover:text-white transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-      </div>
-
-      {/* Mobile Nav Overlay (Backdrop) */}
-      <div 
-        className={`fixed inset-0 bg-zinc-950/60 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300 ${
-          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={() => setIsOpen(false)}
-      ></div>
-
-      {/* Mobile Nav Drawer */}
-      <div className={`fixed top-0 right-0 bottom-0 w-[300px] bg-zinc-950 z-50 lg:hidden transition-transform duration-500 ease-out shadow-2xl ${
-        isOpen ? 'translate-x-0' : 'translate-x-full'
-      }`}>
-        <div className="flex flex-col h-full">
-          {/* Mobile Header */}
-          <div className="p-6 border-b border-zinc-800 flex items-center justify-between">
-            <div className="flex flex-col">
-              <span className="text-sm font-black text-white uppercase tracking-tight">Menu</span>
-              <span className="text-[8px] text-zinc-500 font-bold uppercase tracking-widest">Navigation</span>
-            </div>
-            <button 
-              className="p-2 text-zinc-400 hover:text-white transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              <X size={24} />
-            </button>
           </div>
 
-          <ul className="flex-1 overflow-y-auto p-6 flex flex-col gap-2">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                {link.children ? (
-                  <div className="space-y-2 py-2">
-                    <div className="flex items-center gap-3 text-sm font-black uppercase tracking-wider text-zinc-500">
-                      <link.icon size={16} />
-                      {link.label}
-                    </div>
-                    <div className="pl-6 flex flex-col gap-2 border-l border-zinc-900 ml-2">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.path}
-                          to={child.path}
-                          onClick={() => setIsOpen(false)}
-                          className={`text-xs font-bold uppercase tracking-widest py-2 transition-colors ${
-                            isActive(child.path) ? 'text-brand-red' : 'text-zinc-400 hover:text-white'
-                          }`}
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <Link
-                    to={link.path}
-                    onClick={() => setIsOpen(false)}
-                    className={`flex items-center gap-3 text-sm font-black uppercase tracking-wider py-3 transition-colors ${
-                      isActive(link.path) ? 'text-brand-red' : 'text-zinc-300 hover:text-white'
-                    }`}
-                  >
-                    <link.icon size={18} className={isActive(link.path) ? 'text-brand-red' : 'text-zinc-600'} />
-                    {link.label}
-                  </Link>
-                )}
-              </li>
-            ))}
-            <li className="pt-4">
+          {/* 4. Mobile Menu Button */}
+          <button 
+            onClick={() => setIsOpen(true)}
+            className="lg:hidden p-2 text-zinc-400 hover:text-white bg-zinc-900 border border-zinc-800 rounded-xl transition-colors"
+          >
+            <Menu size={24} />
+          </button>
+        </div>
+      </nav>
+
+      {/* 5. Mobile Full Screen Overlay */}
+      <div className={`fixed inset-0 z-[60] bg-zinc-950 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        isOpen ? 'translate-x-0 opacity-100 visible' : 'translate-x-full opacity-0 invisible pointer-events-none'
+      }`}>
+        <div className="flex flex-col h-full relative overflow-hidden">
+          
+          {/* Main Menu Level */}
+          <div className={`flex flex-col h-full transition-transform duration-500 ease-in-out w-full absolute inset-0 ${
+            mobileMenuLevel === 0 ? 'translate-x-0' : '-translate-x-full'
+          }`}>
+            {/* Mobile Header */}
+            <div className="p-6 border-b border-zinc-900 bg-zinc-900/50 flex items-center justify-between">
+              <Link to="/" onClick={() => { setIsOpen(false); setMobileMenuLevel(0); }} className="flex items-center gap-2">
+                <img src="/logo.png" className="w-8 h-8 object-contain" alt="Logo" />
+                <span className="text-xs font-black text-white uppercase tracking-tighter leading-none">The Praise <br/> Chapel</span>
+              </Link>
+              <button 
+                className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white transition-all"
+                onClick={() => { setIsOpen(false); setMobileMenuLevel(0); }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <ul className="flex-1 overflow-y-auto px-6 py-8 flex flex-col gap-1">
+              {navigation.map((item) => (
+                <li key={item.name} className="border-b border-zinc-900/50 last:border-0">
+                  {item.children ? (
+                    <button 
+                      onClick={() => setMobileMenuLevel(1)}
+                      className="w-full flex items-center justify-between py-5 text-lg font-black uppercase tracking-wider text-zinc-300 group"
+                    >
+                      <div className="flex items-center gap-4">
+                        <item.icon size={20} className="text-brand-green group-hover:text-brand-red transition-colors" />
+                        {item.name}
+                      </div>
+                      <ChevronDown size={18} className="-rotate-90 text-zinc-600" />
+                    </button>
+                  ) : (
+                    <Link
+                      to={item.path}
+                      onClick={() => { setIsOpen(false); setMobileMenuLevel(0); }}
+                      className={`flex items-center gap-4 text-lg font-black uppercase tracking-wider py-5 transition-colors ${
+                        location.pathname === item.path ? 'text-brand-red' : 'text-zinc-300 hover:text-brand-green'
+                      }`}
+                    >
+                      <item.icon size={20} className={location.pathname === item.path ? 'text-brand-red' : 'text-zinc-600'} />
+                      {item.name}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+
+            {/* Mobile Footer Area */}
+            <div className="p-6 space-y-6 bg-zinc-900/30 border-t border-zinc-900">
               <Link 
                 to="/sermons" 
-                onClick={() => setIsOpen(false)}
-                className="bg-brand-green text-white w-full py-4 rounded-xl font-black uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-brand-green/20"
+                onClick={() => { setIsOpen(false); setMobileMenuLevel(0); }}
+                className="bg-brand-red text-white w-full py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-3 shadow-2xl shadow-brand-red/20 active:scale-95 transition-all"
               >
-                <Radio size={18} className="animate-pulse text-brand-red" />
-                Watch Live Now
+                <Radio size={16} className="animate-pulse" />
+                Watch Service Live
               </Link>
-            </li>
-          </ul>
-
-          {/* Mobile Footer/Socials */}
-          <div className="p-8 border-t border-zinc-900 bg-zinc-900/20">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">Connect</span>
-              <div className="flex items-center gap-4">
-                <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Facebook size={18} /></a>
-                <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Instagram size={18} /></a>
-                <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Youtube size={18} /></a>
+              
+              <div className="flex items-center justify-between px-2">
+                <div className="flex flex-col gap-1">
+                  <span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Global Community</span>
+                  <div className="flex gap-4">
+                    <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Facebook size={18} /></a>
+                    <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Instagram size={18} /></a>
+                    <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Youtube size={18} /></a>
+                  </div>
+                </div>
+                <div className="flex flex-col items-end gap-1 text-right">
+                  <span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Headquarters</span>
+                  <div className="flex items-center gap-1.5 text-zinc-400 text-[9px] font-bold uppercase tracking-tight">
+                    <MapPin size={10} className="text-brand-red" /> Ogbomoso, Nigeria
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+
+          {/* Sub Menu Level (Resources) */}
+          <div className={`flex flex-col h-full transition-transform duration-500 ease-in-out w-full absolute inset-0 bg-zinc-950 ${
+            mobileMenuLevel === 1 ? 'translate-x-0' : 'translate-x-full'
+          }`}>
+            <div className="p-6 border-b border-zinc-900 bg-zinc-900/50 flex items-center gap-4">
+              <button 
+                onClick={() => setMobileMenuLevel(0)}
+                className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white transition-all"
+              >
+                <ChevronDown size={24} className="rotate-90" />
+              </button>
+              <div className="flex flex-col">
+                <span className="text-sm font-black text-white uppercase tracking-wider">Resources</span>
+                <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Back to Main Menu</span>
+              </div>
+            </div>
+            
+            <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-2">
+              {navigation.find(n => n.name === 'Resources')?.children?.map((child) => (
+                <Link
+                  key={child.name}
+                  to={child.path}
+                  onClick={() => { setIsOpen(false); setMobileMenuLevel(0); }}
+                  className={`flex items-center justify-between p-6 rounded-[2rem] border transition-all ${
+                    location.pathname === child.path 
+                      ? 'bg-brand-red/5 border-brand-red text-brand-red' 
+                      : 'bg-zinc-900/50 border-zinc-900 text-zinc-400 hover:border-zinc-700 hover:text-white'
+                  }`}
+                >
+                  <div className="flex items-center gap-4">
+                    <child.icon size={20} className={location.pathname === child.path ? 'text-brand-red' : 'text-zinc-600'} />
+                    <span className="text-sm font-black uppercase tracking-widest">{child.name}</span>
+                  </div>
+                  <ChevronDown size={16} className="-rotate-90 opacity-40" />
+                </Link>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
-
-      {/* Search Modal */}
+      {/* 6. Search Modal */}
       <div 
         className={`fixed inset-0 z-[100] flex items-start justify-center pt-24 px-6 transition-all duration-300 ${
           isSearchOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
@@ -363,7 +421,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </nav>
+    </>
   );
 };
 

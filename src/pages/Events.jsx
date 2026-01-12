@@ -2,6 +2,50 @@ import React from 'react';
 import { Calendar as CalendarIcon, Clock, MapPin, ChevronRight, Share2, Bell } from 'lucide-react';
 
 const Events = () => {
+  const addToCalendar = (event) => {
+    const { title, date, time, loc, desc } = event;
+    
+    // Basic date parsing logic for Google Calendar format (YYYYMMDDTHHmmSSZ)
+    // Note: This is a simplified version. For a production app, use date-fns or dayjs.
+    const baseUrl = 'https://www.google.com/calendar/render?action=TEMPLATE';
+    
+    // Extract year, month, day
+    // Example date formats: "August 15 2026", "February 02 2026", "March 1-3 2026"
+    const dateParts = date.replace('-', ' ').split(' ');
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    
+    // Try to find month index
+    const monthIndex = monthNames.findIndex(m => dateParts[0].toLowerCase().startsWith(m.toLowerCase().substring(0, 3)));
+    const month = (monthIndex + 1).toString().padStart(2, '0');
+    const day = dateParts[1].padStart(2, '0').substring(0, 2);
+    const year = dateParts[dateParts.length - 1];
+    
+    // Default time to 09:00 if not provided
+    const startTime = time ? time.replace(/[:\sAPM]/g, '').padStart(4, '0') + '00' : '090000';
+    const startDate = `${year}${month}${day}T${startTime}`;
+    const endDate = `${year}${month}${day}T${(parseInt(startTime) + 20000).toString().padStart(6, '0')}`; // Add 2 hours
+    
+    const url = `${baseUrl}&text=${encodeURIComponent(title)}&details=${encodeURIComponent(desc || 'Ministry Gathering at Praise Chapel')}&location=${encodeURIComponent(loc)}&dates=${startDate}/${endDate}`;
+    
+    window.open(url, '_blank');
+  };
+
+  const featuredEvent = {
+    title: "Prophetic Prayer Meeting",
+    date: "February 1 2026",
+    loc: "Headquarters",
+    desc: "Join intercessors from across the nation for three days of strategic prophetic prayer, spiritual warfare, and divine empowerment."
+  };
+
+  const upcomingEvents = [
+    { title: 'National Youth Convention', date: 'August 15 2026', time: '4:30 PM', loc: 'Headquarters', cat: 'Convention' },
+    { title: 'March Prohetic Prayer Meeting', date: 'March 1 2026', time: '5:00 PM', loc: 'Headquarters', cat: 'Prophetic' },
+    { title: 'Drama Week', date: 'October 4 2026', time: '8:00 AM', loc: 'Headquarters', cat: 'Drama' },
+    { title: 'Leadership Anointing', date: 'February 02 2026', time: '10:00 AM', loc: 'Headquarters', cat: 'Training' },
+    { title: 'Evangelism Sunday', date: 'February 08 2026', time: '10:30 AM', loc: 'Main Sanctuary', cat: 'Outreach' },
+    { title: 'Covenant Dinner', date: 'February 14 2026', time: '6:00 PM', loc: 'Grand Plaza', cat: 'Fellowship' },
+  ];
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -39,23 +83,31 @@ const Events = () => {
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-red/10 border border-brand-red/20 text-brand-red text-[10px] font-black uppercase tracking-widest w-fit">
                   Prophetic Call
                 </div>
-                <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none">Annual Prayer Summit 2026</h2>
+                <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none">Prophetic Prayer Meeting</h2>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 text-zinc-400 font-bold uppercase tracking-widest text-xs">
                     <CalendarIcon className="text-brand-red" size={20} />
-                    <span>August 14 - 17, 2026</span>
+                    <span>Febuary 1 - 3, 2026</span>
                   </div>
                   <div className="flex items-center gap-3 text-zinc-400 font-bold uppercase tracking-widest text-xs">
                     <MapPin className="text-brand-red" size={20} />
-                    <span>Mountain View Retreat Center</span>
+                    <span>Headquarters</span>
                   </div>
                 </div>
                 <p className="text-zinc-400 font-medium leading-relaxed">
-                  Join intercessors from across the nation for four days of strategic prayer, spiritual warfare, and divine empowerment.
+                  Join intercessors from across the nation for three days of strategic prophetic prayer, spiritual warfare, and divine empowerment.
                 </p>
                 <div className="flex gap-4 pt-4">
                   <button className="bg-brand-green hover:bg-brand-green/90 text-white px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all shadow-xl shadow-brand-green/20 active:scale-95">
-                    Register for Summit
+                    Register
+                  </button>
+                  <button 
+                    onClick={() => addToCalendar(featuredEvent)}
+                    className="p-4 rounded-xl bg-zinc-800 text-zinc-400 hover:text-white hover:bg-brand-red transition-all flex items-center gap-2"
+                    title="Add to Calendar"
+                  >
+                    <CalendarIcon size={20} />
+                    <span className="text-[10px] font-black uppercase tracking-widest hidden md:block">Add to Calendar</span>
                   </button>
                   <button className="p-4 rounded-xl bg-zinc-800 text-zinc-400 hover:text-white hover:bg-brand-red transition-all">
                     <Share2 size={24} />
@@ -83,22 +135,24 @@ const Events = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { title: 'Youth Intercession', date: 'Jan 15', time: '6:30 PM', loc: 'Prayer Hall', cat: 'Prophetic' },
-              { title: 'Worship Encounter', date: 'Jan 22', time: '7:00 PM', loc: 'The Chapel', cat: 'Liturgical' },
-              { title: 'Brothers Fellowship', date: 'Jan 24', time: '8:00 AM', loc: 'Community Hall', cat: 'Fellowship' },
-              { title: 'Leadership Anointing', date: 'Feb 02', time: '10:00 AM', loc: 'Classroom A', cat: 'Training' },
-              { title: 'Evangelism Sunday', date: 'Feb 08', time: '10:30 AM', loc: 'Main Sanctuary', cat: 'Outreach' },
-              { title: 'Covenant Dinner', date: 'Feb 14', time: '6:00 PM', loc: 'Grand Plaza', cat: 'Fellowship' },
-            ].map((event, i) => (
+            {upcomingEvents.map((event, i) => (
               <div key={i} className="group bg-zinc-900/50 p-8 rounded-[2.5rem] border border-zinc-800 hover:border-brand-green/50 transition-all flex flex-col justify-between space-y-8">
                 <div className="space-y-6">
                   <div className="flex justify-between items-start">
                     <div className="w-16 h-16 bg-zinc-950 rounded-2xl flex flex-col items-center justify-center border border-zinc-800 group-hover:bg-brand-red group-hover:border-brand-red transition-all shadow-xl">
-                      <span className="text-zinc-500 text-[10px] font-black uppercase group-hover:text-white transition-colors">{event.date.split(' ')[0]}</span>
+                      <span className="text-zinc-500 text-[10px] font-black uppercase group-hover:text-white transition-colors">{event.date.split(' ')[0].substring(0, 3)}</span>
                       <span className="text-white text-2xl font-black">{event.date.split(' ')[1]}</span>
                     </div>
-                    <span className="px-3 py-1 rounded-full bg-zinc-950 text-brand-green text-[10px] font-black uppercase tracking-widest border border-zinc-800">{event.cat}</span>
+                    <div className="flex flex-col items-end gap-2">
+                      <span className="px-3 py-1 rounded-full bg-zinc-950 text-brand-green text-[10px] font-black uppercase tracking-widest border border-zinc-800">{event.cat}</span>
+                      <button 
+                        onClick={() => addToCalendar(event)}
+                        className="p-2 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-500 hover:text-brand-red transition-all"
+                        title="Add to Calendar"
+                      >
+                        <CalendarIcon size={14} />
+                      </button>
+                    </div>
                   </div>
                   <div>
                     <h4 className="text-xl font-black text-white group-hover:text-brand-green transition-colors uppercase tracking-tight leading-none">{event.title}</h4>
@@ -115,7 +169,7 @@ const Events = () => {
                   </div>
                 </div>
                 <button className="flex items-center justify-between w-full p-4 rounded-xl bg-zinc-950 hover:bg-zinc-800 text-zinc-400 hover:text-white text-xs font-black uppercase tracking-widest transition-all border border-zinc-800">
-                  Join Gathering
+                  Register
                   <ChevronRight size={18} className="text-brand-red" />
                 </button>
               </div>
@@ -136,7 +190,10 @@ const Events = () => {
               <Bell size={20} />
               Subscribe
             </button>
-            <button className="flex-1 md:flex-none bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2 hover:bg-white/20 active:scale-95">
+            <button 
+              onClick={() => addToCalendar(featuredEvent)}
+              className="flex-1 md:flex-none bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2 hover:bg-white/20 active:scale-95"
+            >
               <CalendarIcon size={20} />
               Add to Calendar
             </button>

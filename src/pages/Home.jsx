@@ -10,7 +10,7 @@ const Home = () => {
         {/* Background Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&q=80&w=2000" 
+            src="/header.jpg" 
             alt="The Praise Chapel Worship" 
             className="w-full h-full object-cover scale-105"
           />
@@ -28,9 +28,8 @@ const Home = () => {
             </div>
             
             <h1 className="text-6xl md:text-8xl font-black tracking-tight text-white leading-[0.95] uppercase">
-              House <br />
-              <span className="text-brand-red">To-House</span> Prayer <br />
-              Ministries
+              House-
+              <span className="text-brand-red">To</span> -House Prayer Ministries
             </h1>
             
             <p className="text-lg text-zinc-300 leading-relaxed max-w-xl font-medium">
@@ -57,37 +56,21 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Quick Stats/Features */}
-      <section className="bg-zinc-950 py-12 border-y border-zinc-900">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
-          {[
-            { label: 'Prayer Cells', value: '120+', icon: Users },
-            { label: 'Communities', value: '50+', icon: Heart },
-            { label: 'Ministries', value: '15+', icon: Radio },
-            { label: 'Years of Prayer', value: '30+', icon: Calendar },
-          ].map((stat, i) => (
-            <div key={i} className="text-center space-y-2">
-              <div className="flex justify-center text-brand-red"><stat.icon size={20} /></div>
-              <div className="text-3xl font-black text-white">{stat.value}</div>
-              <div className="text-zinc-500 text-[10px] font-black uppercase tracking-widest">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Service Times & Location */}
       <section className="py-24 bg-zinc-950 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
-            <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">Our <span className="text-brand-red">Gatherings</span></h2>
+            <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">Our <span className="text-brand-red">Programs</span></h2>
             <p className="text-zinc-400 text-lg font-medium leading-relaxed">
               Acts 2:42 — "And they continued steadfastly in the apostles' doctrine and fellowship, in the breaking of bread, and in prayers."
             </p>
             
             <div className="grid gap-4">
               {[
-                { time: '08:30 AM', name: 'Sunday Celebration', desc: 'Main worship and prophetic word.', color: 'brand-red' },
-                { time: '06:30 PM', name: 'Mid-Week Power', desc: 'Deep intercession and teaching.', color: 'brand-green' },
+                { time: '09:00 AM', Venue:"Every Branch", name: 'Sunday Service', desc: 'Happening in all Branches', color: 'brand-red' },
+                { time: '05:30 PM', Venue:"Every Branch", name: 'Bible Study', desc: 'Digging Deep into Scripture.', color: 'brand-green' },
+                { time: '05:00 AM', Venue:"Headquarters", name: 'Prophetic Prayer Meetings', desc: 'Happening 1st – 3rd of every month', color: 'brand-red' },
+                { time: '10:00 PM', Venue:"Headquarters", name: 'Freedom Night', desc: 'Every 3rd Friday of the month.', color: 'brand-green' },
               ].map((service, i) => (
                 <div key={i} className="flex gap-6 p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-brand-red/50 transition-all group">
                   <div className={`bg-${service.color}/10 text-${service.color} p-4 rounded-xl transition-all`}>
@@ -107,7 +90,7 @@ const Home = () => {
             <div className="absolute -inset-4 bg-brand-red/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <div className="relative rounded-3xl overflow-hidden aspect-video border border-zinc-800 shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1544427928-c49cdfebf494?auto=format&fit=crop&q=80&w=1000" 
+                src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=1000&auto=format&fit=crop&q=60"
                 alt="The Praise Chapel Sanctuary" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -115,8 +98,8 @@ const Home = () => {
                 <div className="flex items-center gap-3 text-white">
                   <MapPin size={24} className="text-brand-red" />
                   <div>
-                    <div className="font-black uppercase tracking-widest text-sm">Main Chapel</div>
-                    <div className="text-zinc-200 text-xs font-medium">123 Faith Avenue, City of Praise</div>
+                    <div className="font-black uppercase tracking-widest text-sm">Headquarters </div>
+                    <div className="text-zinc-200 text-xs font-medium">Papa Adeyemo Area Ogbomoso, Oyo State Nigeria</div>
                   </div>
                 </div>
               </div>
@@ -130,8 +113,8 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
             <div>
-              <h2 className="text-brand-red font-black uppercase tracking-[0.2em] text-xs mb-4">Apostles' Doctrine</h2>
-              <h3 className="text-4xl font-black text-white uppercase tracking-tight">Latest <span className="text-brand-green">Exaltation</span></h3>
+              <h2 className="text-brand-red font-black uppercase tracking-[0.2em] text-xs mb-4">Doctrines</h2>
+              <h3 className="text-4xl font-black text-white uppercase tracking-tight">Our Latest <span className="text-brand-green">Messages</span></h3>
             </div>
             <Link to="/sermons" className="text-brand-red font-black uppercase tracking-widest text-xs flex items-center gap-2 hover:gap-3 transition-all">
               All Messages <ArrowRight size={16} />
@@ -141,18 +124,15 @@ const Home = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 relative group rounded-3xl overflow-hidden aspect-video shadow-2xl border border-zinc-800">
               <img 
-                src="https://images.unsplash.com/photo-1510563393911-372138a37d22?auto=format&fit=crop&q=80&w=1200" 
-                alt="Featured Exaltation" 
+                src="/Image.jpg" 
+                alt="Examine Yourself" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 grayscale hover:grayscale-0"
               />
               <div className="absolute inset-0 bg-brand-green/30 group-hover:bg-transparent transition-colors flex items-center justify-center">
-                <button className="w-20 h-20 bg-white rounded-full flex items-center justify-center text-brand-green shadow-2xl active:scale-90 transition-transform">
-                  <Play size={32} fill="currentColor" />
-                </button>
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-brand-green to-transparent">
-                <div className="text-brand-red font-black text-xs mb-2 uppercase tracking-[0.2em]">Current Series: The Prayer Life</div>
-                <div className="text-3xl font-black text-white uppercase tracking-tight">Steadfastness in Prayer</div>
+                <div className="text-brand-red font-black text-xs mb-2 uppercase tracking-[0.2em]">Series: Broadcast Message</div>
+                <div className="text-3xl font-black text-white uppercase tracking-tight">Examine Yourself</div>
               </div>
             </div>
 
