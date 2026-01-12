@@ -3,7 +3,7 @@ import { BookOpen, Download, ShoppingBag } from 'lucide-react';
 
 const Books = () => {
   const items = [
-    { title: "The Altar of Prayer", author: "Dr. David Solomon", type: "Digital / Print" },
+    { title: "The Altar of Prayer", author: "Reverend Debo Adeyemo", type: "Digital / Print" },
     { title: "Doctrine of the Apostles", author: "House-To-House Ministries", type: "Digital PDF" },
     { title: "Prophetic Foundations", author: "Sarah Solomon", type: "Hardcover" },
   ];

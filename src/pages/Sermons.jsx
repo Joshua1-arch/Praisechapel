@@ -6,10 +6,10 @@ const Sermons = () => {
   const [selectedSpeaker, setSelectedSpeaker] = useState('All');
 
   const sermonsData = [
-    { title: 'The Heart of Worship', speaker: 'Dr. David Solomon', date: 'Jan 11, 2026', img: 'https://images.unsplash.com/photo-1510563393911-372138a37d22?auto=format&fit=crop&q=80&w=800', category: 'Worship', duration: '45 min' },
+    { title: 'The Heart of Worship', speaker: 'Reverend Debo Adeyemo', date: 'Jan 11, 2026', img: 'https://images.unsplash.com/photo-1510563393911-372138a37d22?auto=format&fit=crop&q=80&w=800', category: 'Worship', duration: '45 min' },
     { title: 'Unwavering Faith', speaker: 'Sarah Solomon', date: 'Jan 4, 2026', img: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&q=80&w=800', category: 'Faith', duration: '52 min' },
     { title: 'Power in Prayer', speaker: 'Michael Chen', date: 'Dec 28, 2025', img: 'https://images.unsplash.com/photo-1544427928-c49cdfebf494?auto=format&fit=crop&q=80&w=800', category: 'Prayer', duration: '38 min' },
-    { title: 'Divine Purpose', speaker: 'Dr. David Solomon', date: 'Dec 21, 2025', img: 'https://images.unsplash.com/photo-1507434965515-61970f2bd7c6?auto=format&fit=crop&q=80&w=800', category: 'Living', duration: '41 min' },
+    { title: 'Divine Purpose', speaker: 'Reverend Debo Adeyemo', date: 'Dec 21, 2025', img: 'https://images.unsplash.com/photo-1507434965515-61970f2bd7c6?auto=format&fit=crop&q=80&w=800', category: 'Living', duration: '41 min' },
     { title: 'Victory in Christ', speaker: 'Pastor Samuel', date: 'Dec 14, 2025', img: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=800', category: 'Faith', duration: '48 min' },
   ];
 

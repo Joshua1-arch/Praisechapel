@@ -37,7 +37,7 @@ const About = () => {
             <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">How it all <span className="text-brand-green italic">Began</span></h2>
             <div className="space-y-6 text-zinc-400 text-lg leading-relaxed font-medium">
               <p>
-                In the late 90s, a small group of devoted believers led by Dr. David Solomon gathered in a humble living room with one goal: to seek the face of God for their community. What started as a local prayer meeting soon ignited into a spiritual movement.
+                In the late 90s, a small group of devoted believers led by Reverend Debo Adeyemo gathered in a humble living room with one goal: to seek the face of God for their community. What started as a local prayer meeting soon ignited into a spiritual movement.
               </p>
               <p>
                 The mandate was clear—to take the fire of the altar from the sanctuary into the homes. We believed that every house should be a lighthouse, and every family an army of intercessors.
@@ -155,9 +155,7 @@ const About = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
-              { name: 'Dr. David Solomon', role: 'General Overseer', img: 'https://images.unsplash.com/photo-1548372290-8d01b6c8e78c?auto=format&fit=crop&q=80&w=400' },
-              { name: 'Sarah Solomon', role: 'Executive Director', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400' },
-              { name: 'Michael Chen', role: 'Music & Liturgy', img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400' },
+              { name: 'Reverend Debo Adeyemo', role: 'General Overseer', img: '/REV.jpg' },
             ].map((leader, i) => (
               <div key={i} className="group space-y-6">
                 <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl relative grayscale group-hover:grayscale-0 transition-all duration-700">

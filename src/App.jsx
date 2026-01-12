@@ -15,6 +15,7 @@ import Meditation from './pages/Meditation';
 import Lessons from './pages/Lessons';
 import Tracts from './pages/Tracts';
 import DailyCharge from './pages/DailyCharge';
+import Gallery from './pages/Gallery';
 import './App.css';
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/resources/lessons" element={<Lessons />} />
           <Route path="/resources/tracts" element={<Tracts />} />
           <Route path="/resources/daily-charge" element={<DailyCharge />} />
+          <Route path="/gallery" element={<Gallery />} />
         </Routes>
       </main>
       <Footer />

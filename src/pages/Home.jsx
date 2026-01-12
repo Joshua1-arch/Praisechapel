@@ -1,20 +1,79 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, Calendar, Users, Heart, ArrowRight, Radio, MapPin, Clock } from 'lucide-react';
+import { Play, Calendar, Users, Heart, ArrowRight, Radio, MapPin, Clock, ChevronLeft, ChevronRight, BookOpen, Send, Zap } from 'lucide-react';
 
 const Home = () => {
+  const [currentHeader, setCurrentHeader] = useState(0);
+  const headers = [
+    '/Header2.jpg',
+    '/Header3.JPG',
+    '/header4.JPG',
+    '/header5.JPG'
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHeader((prev) => (prev + 1) % headers.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextHeader = () => setCurrentHeader((prev) => (prev + 1) % headers.length);
+  const prevHeader = () => setCurrentHeader((prev) => (prev - 1 + headers.length) % headers.length);
+
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
+      {/* Hero Section - Carousel */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* Background Overlay */}
+        {/* Background Carousel */}
         <div className="absolute inset-0 z-0">
-          <img 
-            src="/header.jpg" 
-            alt="The Praise Chapel Worship" 
-            className="w-full h-full object-cover scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-green/90 via-brand-green/60 to-transparent"></div>
+          {headers.map((img, index) => (
+            <div
+              key={img}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                index === currentHeader ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <img 
+                src={img} 
+                alt={`Praise Chapel Header ${index + 1}`} 
+                className="w-full h-full object-cover"
+              />
+              {/* Dynamic Overlay per slide - darker on left for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/90 via-zinc-950/40 to-transparent"></div>
+            </div>
+          ))}
+        </div>
+
+        {/* Carousel Controls */}
+        <div className="absolute inset-x-0 bottom-12 z-20 flex items-center justify-center gap-4">
+          <div className="flex gap-2">
+            {headers.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentHeader(i)}
+                className={`h-1.5 transition-all duration-300 rounded-full ${
+                  i === currentHeader ? 'w-8 bg-brand-red' : 'w-2 bg-white/30 hover:bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Side Arrows */}
+        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 z-20 px-6 hidden md:flex justify-between pointer-events-none">
+          <button 
+            onClick={prevHeader}
+            className="p-3 rounded-full bg-white/5 hover:bg-brand-red border border-white/10 text-white transition-all pointer-events-auto backdrop-blur-sm"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button 
+            onClick={nextHeader}
+            className="p-3 rounded-full bg-white/5 hover:bg-brand-red border border-white/10 text-white transition-all pointer-events-auto backdrop-blur-sm"
+          >
+            <ChevronRight size={24} />
+          </button>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
@@ -24,7 +83,7 @@ const Home = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
               </span>
-              Praise Chapel
+              The Praise Chapel
             </div>
             
             <h1 className="text-6xl md:text-8xl font-black tracking-tight text-white leading-[0.95] uppercase">
@@ -58,28 +117,79 @@ const Home = () => {
 
       {/* Service Times & Location */}
       <section className="py-24 bg-zinc-950 relative overflow-hidden">
+        {/* Subtle Background Elements */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-red/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-green/5 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
+
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-8">
-            <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">Our <span className="text-brand-red">Programs</span></h2>
-            <p className="text-zinc-400 text-lg font-medium leading-relaxed">
-              Acts 2:42 — "And they continued steadfastly in the apostles' doctrine and fellowship, in the breaking of bread, and in prayers."
-            </p>
+          <div className="space-y-12">
+            <div className="space-y-4">
+              <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-none">
+                Sacred <span className="text-brand-red">Gatherings</span>
+              </h2>
+              <div className="h-1 w-20 bg-brand-red rounded-full"></div>
+              <p className="text-zinc-400 text-lg font-medium leading-relaxed max-w-xl">
+                Experience the raw power of collective prayer and the depth of apostolic doctrine. Join us as we encounter the Divine together.
+              </p>
+            </div>
             
-            <div className="grid gap-4">
+            <div className="grid gap-6">
               {[
-                { time: '09:00 AM', Venue:"Every Branch", name: 'Sunday Service', desc: 'Happening in all Branches', color: 'brand-red' },
-                { time: '05:30 PM', Venue:"Every Branch", name: 'Bible Study', desc: 'Digging Deep into Scripture.', color: 'brand-green' },
-                { time: '05:00 AM', Venue:"Headquarters", name: 'Prophetic Prayer Meetings', desc: 'Happening 1st – 3rd of every month', color: 'brand-red' },
-                { time: '10:00 PM', Venue:"Headquarters", name: 'Freedom Night', desc: 'Every 3rd Friday of the month.', color: 'brand-green' },
+                { 
+                  time: '09:00 AM', 
+                  Venue:"Every Branch", 
+                  name: 'Sunday Service', 
+                  desc: 'A powerful encounter with God through worship, word, and fellowship across all our locations.', 
+                  icon: Users,
+                  color: 'brand-red',
+                  emotion: 'Encounter Grace'
+                },
+                { 
+                  time: '05:30 PM', 
+                  Venue:"Every Branch", 
+                  name: 'Bible Study', 
+                  desc: 'Delve into the living waters of the Word. Transform your mind and spirit through apostolic teaching.', 
+                  icon: BookOpen,
+                  color: 'brand-green',
+                  emotion: 'Deepen Faith'
+                },
+                { 
+                  time: '05:00 AM', 
+                  Venue:"Headquarters", 
+                  name: 'Prophetic Prayer', 
+                  desc: 'Early morning intercession. Piercing the heavens for divine intervention (1st – 3rd monthly).', 
+                  icon: Send,
+                  color: 'brand-red',
+                  emotion: 'Wrestle & Prevail'
+                },
+                { 
+                  time: '10:00 PM', 
+                  Venue:"Headquarters", 
+                  name: 'Freedom Night', 
+                  desc: 'A night of deliverance, breaking chains, and supernatural breakthroughs every 3rd Friday.', 
+                  icon: Zap,
+                  color: 'brand-green',
+                  emotion: 'Break Every Chain'
+                },
               ].map((service, i) => (
-                <div key={i} className="flex gap-6 p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-brand-red/50 transition-all group">
-                  <div className={`bg-${service.color}/10 text-${service.color} p-4 rounded-xl transition-all`}>
-                    <Clock size={24} />
+                <div 
+                  key={i} 
+                  className="group relative flex gap-6 p-8 rounded-3xl bg-zinc-900/40 border border-zinc-800/50 hover:border-brand-red/30 transition-all duration-500 hover:translate-x-2"
+                >
+                  <div className={`shrink-0 w-16 h-16 bg-zinc-950 rounded-2xl flex items-center justify-center border border-zinc-800 group-hover:border-${service.color}/50 group-hover:bg-${service.color}/5 transition-all`}>
+                    <service.icon size={28} className={`text-${service.color} group-hover:scale-110 transition-transform`} />
                   </div>
-                  <div>
-                    <div className={`text-${service.color} font-black uppercase tracking-widest text-xs mb-1`}>{service.time}</div>
-                    <div className="text-xl font-bold text-white mb-2">{service.name}</div>
-                    <div className="text-zinc-400 text-sm font-medium">{service.desc}</div>
+                  <div className="flex-1 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className={`text-${service.color} font-black uppercase tracking-[0.2em] text-[10px]`}>{service.time} • {service.Venue}</div>
+                      <span className="text-[9px] font-black uppercase tracking-widest text-zinc-600 group-hover:text-brand-red transition-colors">{service.emotion}</span>
+                    </div>
+                    <div className="text-2xl font-black text-white uppercase tracking-tight">{service.name}</div>
+                    <div className="text-zinc-500 text-sm leading-relaxed font-medium">{service.desc}</div>
+                  </div>
+                  {/* Subtle hover indicator */}
+                  <div className="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ArrowRight size={20} className="text-brand-red" />
                   </div>
                 </div>
               ))}

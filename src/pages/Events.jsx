@@ -59,7 +59,7 @@ const Events = () => {
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center space-y-6">
           <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight uppercase leading-none">
-            Holy <span className="text-brand-red">Convocations</span>
+            EVENT
           </h1>
           <p className="text-lg text-zinc-400 max-w-2xl mx-auto font-medium">
             Stay connected with House-To-House ministries through our local and global gatherings.

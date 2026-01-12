@@ -3,7 +3,7 @@ import { Calendar, User, ArrowRight } from 'lucide-react';
 
 const Blog = () => {
   const posts = [
-    { title: "The Power of Persistent Prayer", author: "Dr. David Solomon", date: "Jan 10, 2026", category: "Prayer" },
+    { title: "The Power of Persistent Prayer", author: "Reverend Debo Adeyemo", date: "Jan 10, 2026", category: "Prayer" },
     { title: "Walking in Divine Purpose", author: "Sarah Solomon", date: "Jan 05, 2026", category: "Lifestyle" },
     { title: "Understanding the Apostolic Doctrine", author: "Pastor Samuel Adebayo", date: "Dec 28, 2025", category: "Teaching" },
   ];

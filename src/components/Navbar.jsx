@@ -4,7 +4,7 @@ import {
   Menu, X, ChevronDown, Search, Heart, 
   MapPin, Calendar, PlayCircle, BookOpen, 
   FileText, Headphones, Book, Globe, Send, Zap,
-  Home, Info, Radio, Facebook, Instagram, Youtube
+  Home, Info, Radio, Facebook, Instagram, Youtube, Camera
 } from 'lucide-react';
 
 const Navbar = () => {
@@ -24,6 +24,7 @@ const Navbar = () => {
     { label: 'Give / Offering', path: '/give', category: 'Finance' },
     { label: 'Our Branches', path: '/branches', category: 'Locations' },
     { label: 'Contact Us', path: '/contact', category: 'Support' },
+    { label: 'Ministry Gallery', path: '/gallery', category: 'Media' },
     { label: 'Resources', path: '/resources', category: 'Library' },
     { label: 'Prophetic Blog', path: '/resources/blog', category: 'Resources' },
     { label: 'Books & Publications', path: '/resources/books', category: 'Resources' },
@@ -76,6 +77,7 @@ const Navbar = () => {
     { name: 'Home', path: '/', icon: Home },
     { name: 'About', path: '/about', icon: Info },
     { name: 'Sermons', path: '/sermons', icon: PlayCircle },
+    { name: 'Gallery', path: '/gallery', icon: Camera },
     { name: 'Events', path: '/events', icon: Calendar },
     { 
       name: 'Resources', 

@@ -1,7 +1,13 @@
-import React from 'react';
-import { Calendar, Quote, ArrowRight, Zap, Download, Share2, Facebook, Instagram, Youtube } from 'lucide-react';
+import React, { useState } from 'react';
+import { 
+  Calendar, Quote, ArrowRight, Zap, Download, Share2, 
+  Facebook, Instagram, Youtube, X, ChevronRight, ChevronLeft,
+  Maximize2, Camera, Shield
+} from 'lucide-react';
 
 const DailyCharge = () => {
+  const [selectedCharge, setSelectedCharge] = useState(null);
+
   const charges = [
     { 
       title: "Shun Pride, Shine Humility", 
@@ -9,7 +15,7 @@ const DailyCharge = () => {
       verse: "Prov 16:18", 
       content: "It is a tiny emotional disease but send a whole life into destruction. When hidden in one's hearts it is more cruel than rulers of darkness of this world. No one has it and receives the favour of God and man. It is Mr Pride. Since the devil was banished from Heaven, no one miss him. As you go out today, shun pride, shine humility.",
       reference: "Pride goeth before destruction, and an haughty spirit before a fall (KJV)",
-      image: "/daily-charge-1.jpg" // Placeholder for the user's image
+      image: "/12.jpg" 
     },
     { 
       title: "The Fire on the Altar", 
@@ -17,9 +23,46 @@ const DailyCharge = () => {
       verse: "Leviticus 6:13", 
       content: "The fire must be kept burning on the altar continuously; it must not go out. Your heart is the altar; keep your devotion burning through prayer.",
       reference: "The fire shall ever be burning upon the altar; it shall never go out. (KJV)",
-      image: "https://images.unsplash.com/photo-1544427928-c49cdfebf494?w=800&auto=format&fit=crop&q=60"
+      image: "/eader6.JPG"
     }
   ];
+
+  const nextCharge = (e) => {
+    e.stopPropagation();
+    const currentIndex = charges.findIndex(c => c.title === selectedCharge.title);
+    const nextIndex = (currentIndex + 1) % charges.length;
+    setSelectedCharge(charges[nextIndex]);
+  };
+
+  const prevCharge = (e) => {
+    e.stopPropagation();
+    const currentIndex = charges.findIndex(c => c.title === selectedCharge.title);
+    const prevIndex = (currentIndex - 1 + charges.length) % charges.length;
+    setSelectedCharge(charges[prevIndex]);
+  };
+
+  const handleDownload = async (imageUrl, title) => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `PraiseChapel-DailyCharge-${title.replace(/\s+/g, '-')}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download failed:', error);
+      // Fallback to simple link if fetch fails
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.target = '_blank';
+      link.download = `DailyCharge-${title}.jpg`;
+      link.click();
+    }
+  };
 
   return (
     <div className="flex flex-col bg-zinc-950 min-h-screen">
@@ -52,7 +95,17 @@ const DailyCharge = () => {
               {/* Image Card (Visual Component) */}
               <div className="w-full lg:w-1/2 group relative">
                 <div className="absolute -inset-4 bg-brand-red/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                <div className="relative aspect-square md:aspect-[4/5] lg:aspect-square bg-zinc-900 rounded-[2rem] overflow-hidden border border-zinc-800 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+                <div 
+                  className="relative aspect-square md:aspect-[4/5] lg:aspect-square bg-zinc-900 rounded-[2rem] overflow-hidden border border-zinc-800 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02] cursor-pointer"
+                  onClick={() => setSelectedCharge(charge)}
+                >
+                  {/* Watermark Overlay (Fixed) */}
+                  <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden opacity-10 flex items-center justify-center rotate-[-30deg]">
+                    <span className="text-white text-4xl font-black whitespace-nowrap uppercase tracking-[1em]">
+                      PRAISE CHAPEL MEDIA • HOUSE-TO-HOUSE
+                    </span>
+                  </div>
+
                   {/* Decorative Header like the reference image */}
                   <div className="absolute top-0 left-0 right-0 p-8 z-20 flex justify-between items-start bg-gradient-to-b from-black/60 to-transparent">
                     <div className="flex items-center gap-3">
@@ -103,11 +156,17 @@ const DailyCharge = () => {
 
                   {/* Interaction Buttons */}
                   <div className="absolute bottom-6 right-6 z-30 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button className="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all">
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); handleDownload(charge.image, charge.title); }}
+                      className="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all"
+                    >
                       <Download size={18} />
                     </button>
-                    <button className="w-10 h-10 bg-brand-red text-white rounded-full flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all">
-                      <Share2 size={18} />
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); setSelectedCharge(charge); }}
+                      className="w-10 h-10 bg-zinc-900 text-white rounded-full flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all"
+                    >
+                      <Maximize2 size={18} />
                     </button>
                   </div>
                 </div>
@@ -137,7 +196,10 @@ const DailyCharge = () => {
                 </div>
 
                 <div className="flex items-center gap-6 pt-6">
-                  <button className="bg-white text-black px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs flex items-center gap-2 hover:bg-brand-red hover:text-white transition-all">
+                  <button 
+                    onClick={() => handleDownload(charge.image, charge.title)}
+                    className="bg-white text-black px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs flex items-center gap-2 hover:bg-brand-red hover:text-white transition-all shadow-lg active:scale-95"
+                  >
                     <Download size={16} /> Save Image
                   </button>
                   <button className="text-zinc-500 hover:text-white font-black uppercase tracking-widest text-xs flex items-center gap-2 transition-colors">
@@ -150,6 +212,127 @@ const DailyCharge = () => {
           ))}
         </div>
       </section>
+
+      {/* Lightbox / Preview Section */}
+      {selectedCharge && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-12 animate-in fade-in duration-300">
+          <div 
+            className="absolute inset-0 bg-zinc-950/98 backdrop-blur-2xl"
+            onClick={() => setSelectedCharge(null)}
+          ></div>
+          
+          <button 
+            className="absolute top-8 right-8 z-[110] w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-white hover:bg-brand-red transition-all shadow-2xl"
+            onClick={() => setSelectedCharge(null)}
+          >
+            <X size={24} />
+          </button>
+
+          {/* Navigation Controls */}
+          <div className="absolute inset-x-4 md:inset-x-12 top-1/2 -translate-y-1/2 flex justify-between z-[110] pointer-events-none">
+            <button 
+              onClick={prevCharge}
+              className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-zinc-900/50 backdrop-blur-md border border-zinc-800 text-white flex items-center justify-center hover:bg-brand-red transition-all pointer-events-auto active:scale-90"
+            >
+              <ChevronLeft size={32} />
+            </button>
+            <button 
+              onClick={nextCharge}
+              className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-zinc-900/50 backdrop-blur-md border border-zinc-800 text-white flex items-center justify-center hover:bg-brand-red transition-all pointer-events-auto active:scale-90"
+            >
+              <ChevronRight size={32} />
+            </button>
+          </div>
+
+          <div className="relative z-[105] max-w-5xl w-full bg-zinc-900 rounded-[3rem] overflow-hidden border border-zinc-800 shadow-2xl flex flex-col lg:flex-row animate-in zoom-in-95 duration-500">
+            <div className="lg:flex-1 h-[60vh] lg:h-[75vh] relative group/preview">
+              {/* Full Designed Card Replicated in Lightbox */}
+              <div className="absolute inset-0 z-10 bg-gradient-to-br from-brand-red/40 to-zinc-950"></div>
+              <img src={selectedCharge.image} className="w-full h-full object-cover mix-blend-overlay opacity-80" alt={selectedCharge.title} />
+              
+              {/* Card Decoration Overlay */}
+              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-8 md:p-12 text-center text-white">
+                <div className="absolute top-0 left-0 right-0 p-8 flex justify-between items-start">
+                  <div className="flex items-center gap-3">
+                    <img src="/logo.png" className="h-10 w-10 object-contain" alt="Logo" />
+                    <div className="flex flex-col border-l border-white/20 pl-3 text-left">
+                      <span className="text-white text-[10px] font-black leading-tight">PRAISE CHAPEL</span>
+                      <span className="text-zinc-400 text-[8px] font-bold uppercase">Youth Fellowship</span>
+                    </div>
+                  </div>
+                </div>
+
+                <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-2 leading-none text-white shadow-2xl">DAILY CHARGE</h2>
+                <div className="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-zinc-300 mb-8">{selectedCharge.date}</div>
+                
+                <div className="bg-black/60 backdrop-blur-md rounded-[2.5rem] p-8 md:p-10 border border-white/10 w-full max-w-lg shadow-2xl">
+                  <p className="text-sm md:text-base font-medium leading-relaxed mb-6 italic text-zinc-100">
+                    "{selectedCharge.content}"
+                  </p>
+                  <div className="pt-6 border-t border-white/10">
+                    <div className="text-brand-red font-black text-xs uppercase tracking-widest mb-1">{selectedCharge.verse}</div>
+                    <div className="text-[10px] font-medium text-zinc-400">{selectedCharge.reference}</div>
+                  </div>
+                </div>
+
+                {/* Footer Logo/Socials in Preview */}
+                <div className="absolute bottom-0 left-0 right-0 p-8 flex justify-center gap-8 bg-gradient-to-t from-black/80 to-transparent">
+                  <div className="flex items-center gap-2 text-[10px] font-bold text-zinc-400">
+                    <Instagram size={12} /> Praise Chapel Youth
+                  </div>
+                  <div className="flex items-center gap-2 text-[10px] font-bold text-zinc-400">
+                    <Facebook size={12} /> Praise Chapel Media
+                  </div>
+                </div>
+              </div>
+
+              {/* Security Watermark */}
+              <div className="absolute inset-0 z-30 pointer-events-none flex items-center justify-center rotate-[-25deg] opacity-[0.05]">
+                <span className="text-white text-6xl font-black whitespace-nowrap uppercase tracking-[1.5em]">
+                  HOUSE-TO-HOUSE PRAYER MINISTRIES OFFICIAL
+                </span>
+              </div>
+            </div>
+
+            <div className="lg:w-96 p-8 md:p-12 flex flex-col justify-between bg-zinc-900 border-l border-zinc-800">
+              <div className="space-y-8">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-brand-red font-black uppercase tracking-widest text-[10px]">
+                    <Shield size={12} />
+                    Official Daily Charge
+                  </div>
+                  <h2 className="text-3xl font-black text-white uppercase tracking-tight leading-none">{selectedCharge.title}</h2>
+                  <div className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest pt-2 border-t border-zinc-800/50">{selectedCharge.date}</div>
+                </div>
+                
+                <div className="space-y-4">
+                  <p className="text-zinc-400 font-medium leading-relaxed italic text-sm">"{selectedCharge.content}"</p>
+                  <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
+                    <div className="text-brand-red font-black text-[9px] uppercase tracking-[0.2em] mb-1">{selectedCharge.verse}</div>
+                    <div className="text-[10px] text-zinc-500 italic leading-tight">{selectedCharge.reference}</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex flex-col gap-3 pt-8">
+                <button 
+                  onClick={() => handleDownload(selectedCharge.image, selectedCharge.title)}
+                  className="w-full py-4 rounded-xl bg-white text-black font-black uppercase tracking-widest text-[10px] shadow-xl flex items-center justify-center gap-2 hover:bg-brand-red hover:text-white transition-all active:scale-95"
+                >
+                  <Download size={14} />
+                  Download Charge
+                </button>
+                <button 
+                  onClick={() => setSelectedCharge(null)}
+                  className="w-full py-4 rounded-xl bg-zinc-800 text-zinc-400 font-black uppercase tracking-widest text-[10px] border border-zinc-700 flex items-center justify-center gap-2 hover:text-white transition-all active:scale-95"
+                >
+                  Back to Articles
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Call to Action */}
       <section className="py-24 bg-brand-red mt-24">
