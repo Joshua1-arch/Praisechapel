@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { 
-  Calendar, Quote, ArrowRight, Zap, Download, Share2, 
+import {
+  Calendar, Quote, ArrowRight, Zap, Download, Share2,
   Facebook, Instagram, Youtube, X, ChevronRight, ChevronLeft,
   Maximize2, Camera, Shield
 } from 'lucide-react';
@@ -9,18 +9,18 @@ const DailyCharge = () => {
   const [selectedCharge, setSelectedCharge] = useState(null);
 
   const charges = [
-    { 
-      title: "Shun Pride, Shine Humility", 
-      date: "Monday January 12, 2026", 
-      verse: "Prov 16:18", 
+    {
+      title: "Shun Pride, Shine Humility",
+      date: "Monday January 12, 2026",
+      verse: "Prov 16:18",
       content: "It is a tiny emotional disease but send a whole life into destruction. When hidden in one's hearts it is more cruel than rulers of darkness of this world. No one has it and receives the favour of God and man. It is Mr Pride. Since the devil was banished from Heaven, no one miss him. As you go out today, shun pride, shine humility.",
       reference: "Pride goeth before destruction, and an haughty spirit before a fall (KJV)",
-      image: "/12.jpg" 
+      image: "/12.jpg"
     },
-    { 
-      title: "The Fire on the Altar", 
-      date: "Sunday January 11, 2026", 
-      verse: "Leviticus 6:13", 
+    {
+      title: "The Fire on the Altar",
+      date: "Sunday January 11, 2026",
+      verse: "Leviticus 6:13",
       content: "The fire must be kept burning on the altar continuously; it must not go out. Your heart is the altar; keep your devotion burning through prayer.",
       reference: "The fire shall ever be burning upon the altar; it shall never go out. (KJV)",
       image: "/eader6.JPG"
@@ -65,9 +65,9 @@ const DailyCharge = () => {
   };
 
   return (
-    <div className="flex flex-col bg-zinc-950 min-h-screen">
+    <div className="flex flex-col bg-[var(--bg-body)] min-h-screen">
       {/* Header */}
-      <section className="relative py-24 bg-zinc-900 border-b border-zinc-800 overflow-hidden text-center">
+      <section className="relative py-24 bg-[var(--bg-card)] border-b border-[var(--border-color)] overflow-hidden text-center">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-brand-red rounded-full blur-[150px] -ml-48 -mt-48"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand-green rounded-full blur-[150px] -mr-48 -mb-48"></div>
@@ -77,10 +77,10 @@ const DailyCharge = () => {
             <Zap size={12} className="fill-current" />
             Spiritual Fuel
           </div>
-          <h1 className="text-5xl md:text-8xl font-black text-white uppercase tracking-tighter leading-none">
+          <h1 className="text-5xl md:text-8xl font-black text-[var(--text-main)] uppercase tracking-tighter leading-none">
             Daily <span className="text-brand-red">Charge</span>
           </h1>
-          <p className="text-lg text-zinc-400 max-w-2xl mx-auto font-medium">
+          <p className="text-lg text-[var(--text-muted)] max-w-2xl mx-auto font-medium">
             Daily prophetic words and visual inspirations from Praise Chapel Youth Fellowship to keep your fire burning.
           </p>
         </div>
@@ -91,12 +91,12 @@ const DailyCharge = () => {
         <div className="grid grid-cols-1 gap-24">
           {charges.map((charge, i) => (
             <div key={i} className="flex flex-col lg:flex-row gap-12 items-center">
-              
+
               {/* Image Card (Visual Component) */}
               <div className="w-full lg:w-1/2 group relative">
                 <div className="absolute -inset-4 bg-brand-red/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                <div 
-                  className="relative aspect-square md:aspect-[4/5] lg:aspect-square bg-zinc-900 rounded-[2rem] overflow-hidden border border-zinc-800 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02] cursor-pointer"
+                <div
+                  className="relative aspect-square md:aspect-[4/5] lg:aspect-square bg-[var(--bg-card)] rounded-[2rem] overflow-hidden border border-[var(--border-color)] shadow-2xl transition-transform duration-500 group-hover:scale-[1.02] cursor-pointer"
                   onClick={() => setSelectedCharge(charge)}
                 >
                   {/* Watermark Overlay (Fixed) */}
@@ -119,17 +119,17 @@ const DailyCharge = () => {
 
                   {/* Background Image / Gradient */}
                   <div className="absolute inset-0 bg-gradient-to-br from-brand-red/40 to-zinc-950 z-10"></div>
-                  <img 
-                    src={charge.image} 
-                    className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-80 transition-transform duration-1000 group-hover:scale-110" 
-                    alt={charge.title} 
+                  <img
+                    src={charge.image}
+                    className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-80 transition-transform duration-1000 group-hover:scale-110"
+                    alt={charge.title}
                   />
 
                   {/* Card Content Overlay */}
                   <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-8 md:p-12 text-center text-white">
                     <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-2 leading-none text-white/95">DAILY CHARGE</h2>
                     <div className="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-zinc-300 mb-8">{charge.date}</div>
-                    
+
                     <div className="bg-black/40 backdrop-blur-md rounded-3xl p-6 md:p-8 border border-white/10 w-full max-w-md">
                       <p className="text-xs md:text-sm font-medium leading-relaxed mb-6 italic text-zinc-100">
                         "{charge.content}"
@@ -156,15 +156,15 @@ const DailyCharge = () => {
 
                   {/* Interaction Buttons */}
                   <div className="absolute bottom-6 right-6 z-30 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button 
+                    <button
                       onClick={(e) => { e.stopPropagation(); handleDownload(charge.image, charge.title); }}
                       className="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all"
                     >
                       <Download size={18} />
                     </button>
-                    <button 
+                    <button
                       onClick={(e) => { e.stopPropagation(); setSelectedCharge(charge); }}
-                      className="w-10 h-10 bg-zinc-900 text-white rounded-full flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all"
+                      className="w-10 h-10 bg-[var(--bg-card)] text-[var(--text-main)] rounded-full flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all"
                     >
                       <Maximize2 size={18} />
                     </button>
@@ -176,7 +176,7 @@ const DailyCharge = () => {
               <div className="w-full lg:w-1/2 space-y-8">
                 <div className="space-y-4">
                   <div className="text-brand-red font-black uppercase tracking-[0.2em] text-xs">Charge</div>
-                  <h3 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-none">
+                  <h3 className="text-4xl md:text-5xl font-black text-[var(--text-main)] uppercase tracking-tight leading-none">
                     {charge.title}
                   </h3>
                 </div>
@@ -184,25 +184,25 @@ const DailyCharge = () => {
                 <div className="flex gap-6">
                   <Quote size={48} className="text-brand-red/20 shrink-0" />
                   <div className="space-y-6">
-                    <p className="text-zinc-400 text-lg leading-relaxed font-medium italic">
+                    <p className="text-[var(--text-muted)] text-lg leading-relaxed font-medium italic">
                       {charge.content}
                     </p>
-                    <div className="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800">
+                    <div className="p-6 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)]">
                       <div className="text-brand-green font-black uppercase tracking-widest text-[10px] mb-2">Scripture Reference</div>
-                      <div className="text-white font-bold text-xl mb-1">{charge.verse}</div>
-                      <div className="text-zinc-500 text-sm font-medium italic">{charge.reference}</div>
+                      <div className="text-[var(--text-main)] font-bold text-xl mb-1">{charge.verse}</div>
+                      <div className="text-[var(--text-muted)] text-sm font-medium italic">{charge.reference}</div>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-6 pt-6">
-                  <button 
+                  <button
                     onClick={() => handleDownload(charge.image, charge.title)}
                     className="bg-white text-black px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs flex items-center gap-2 hover:bg-brand-red hover:text-white transition-all shadow-lg active:scale-95"
                   >
                     <Download size={16} /> Save Image
                   </button>
-                  <button className="text-zinc-500 hover:text-white font-black uppercase tracking-widest text-xs flex items-center gap-2 transition-colors">
+                  <button className="text-[var(--text-muted)] hover:text-[var(--text-main)] font-black uppercase tracking-widest text-xs flex items-center gap-2 transition-colors">
                     <Share2 size={16} /> Share Word
                   </button>
                 </div>
@@ -216,13 +216,13 @@ const DailyCharge = () => {
       {/* Lightbox / Preview Section */}
       {selectedCharge && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-12 animate-in fade-in duration-300">
-          <div 
-            className="absolute inset-0 bg-zinc-950/98 backdrop-blur-2xl"
+          <div
+            className="absolute inset-0 bg-[var(--bg-body)]/95 backdrop-blur-2xl"
             onClick={() => setSelectedCharge(null)}
           ></div>
-          
-          <button 
-            className="absolute top-8 right-8 z-[110] w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-white hover:bg-brand-red transition-all shadow-2xl"
+
+          <button
+            className="absolute top-8 right-8 z-[110] w-12 h-12 rounded-full bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:bg-brand-red transition-all shadow-2xl"
             onClick={() => setSelectedCharge(null)}
           >
             <X size={24} />
@@ -230,26 +230,26 @@ const DailyCharge = () => {
 
           {/* Navigation Controls */}
           <div className="absolute inset-x-4 md:inset-x-12 top-1/2 -translate-y-1/2 flex justify-between z-[110] pointer-events-none">
-            <button 
+            <button
               onClick={prevCharge}
-              className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-zinc-900/50 backdrop-blur-md border border-zinc-800 text-white flex items-center justify-center hover:bg-brand-red transition-all pointer-events-auto active:scale-90"
+              className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-[var(--bg-card)] backdrop-blur-md border border-[var(--border-color)] text-[var(--text-main)] flex items-center justify-center hover:bg-brand-red transition-all pointer-events-auto active:scale-90"
             >
               <ChevronLeft size={32} />
             </button>
-            <button 
+            <button
               onClick={nextCharge}
-              className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-zinc-900/50 backdrop-blur-md border border-zinc-800 text-white flex items-center justify-center hover:bg-brand-red transition-all pointer-events-auto active:scale-90"
+              className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-[var(--bg-card)] backdrop-blur-md border border-[var(--border-color)] text-[var(--text-main)] flex items-center justify-center hover:bg-brand-red transition-all pointer-events-auto active:scale-90"
             >
               <ChevronRight size={32} />
             </button>
           </div>
 
-          <div className="relative z-[105] max-w-5xl w-full bg-zinc-900 rounded-[3rem] overflow-hidden border border-zinc-800 shadow-2xl flex flex-col lg:flex-row animate-in zoom-in-95 duration-500">
+          <div className="relative z-[105] max-w-5xl w-full bg-[var(--bg-card)] rounded-[3rem] overflow-hidden border border-[var(--border-color)] shadow-2xl flex flex-col lg:flex-row animate-in zoom-in-95 duration-500">
             <div className="lg:flex-1 h-[60vh] lg:h-[75vh] relative group/preview">
               {/* Full Designed Card Replicated in Lightbox */}
               <div className="absolute inset-0 z-10 bg-gradient-to-br from-brand-red/40 to-zinc-950"></div>
               <img src={selectedCharge.image} className="w-full h-full object-cover mix-blend-overlay opacity-80" alt={selectedCharge.title} />
-              
+
               {/* Card Decoration Overlay */}
               <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-8 md:p-12 text-center text-white">
                 <div className="absolute top-0 left-0 right-0 p-8 flex justify-between items-start">
@@ -264,7 +264,7 @@ const DailyCharge = () => {
 
                 <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-2 leading-none text-white shadow-2xl">DAILY CHARGE</h2>
                 <div className="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-zinc-300 mb-8">{selectedCharge.date}</div>
-                
+
                 <div className="bg-black/60 backdrop-blur-md rounded-[2.5rem] p-8 md:p-10 border border-white/10 w-full max-w-lg shadow-2xl">
                   <p className="text-sm md:text-base font-medium leading-relaxed mb-6 italic text-zinc-100">
                     "{selectedCharge.content}"
@@ -294,37 +294,37 @@ const DailyCharge = () => {
               </div>
             </div>
 
-            <div className="lg:w-96 p-8 md:p-12 flex flex-col justify-between bg-zinc-900 border-l border-zinc-800">
+            <div className="lg:w-96 p-8 md:p-12 flex flex-col justify-between bg-[var(--bg-card)] border-l border-[var(--border-color)]">
               <div className="space-y-8">
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-brand-red font-black uppercase tracking-widest text-[10px]">
                     <Shield size={12} />
                     Official Daily Charge
                   </div>
-                  <h2 className="text-3xl font-black text-white uppercase tracking-tight leading-none">{selectedCharge.title}</h2>
-                  <div className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest pt-2 border-t border-zinc-800/50">{selectedCharge.date}</div>
+                  <h2 className="text-3xl font-black text-[var(--text-main)] uppercase tracking-tight leading-none">{selectedCharge.title}</h2>
+                  <div className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest pt-2 border-t border-zinc-800/50">{selectedCharge.date}</div>
                 </div>
-                
+
                 <div className="space-y-4">
-                  <p className="text-zinc-400 font-medium leading-relaxed italic text-sm">"{selectedCharge.content}"</p>
-                  <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
+                  <p className="text-[var(--text-muted)] font-medium leading-relaxed italic text-sm">"{selectedCharge.content}"</p>
+                  <div className="p-4 rounded-xl bg-[var(--bg-input)] border border-[var(--border-color)]">
                     <div className="text-brand-red font-black text-[9px] uppercase tracking-[0.2em] mb-1">{selectedCharge.verse}</div>
-                    <div className="text-[10px] text-zinc-500 italic leading-tight">{selectedCharge.reference}</div>
+                    <div className="text-[10px] text-[var(--text-muted)] italic leading-tight">{selectedCharge.reference}</div>
                   </div>
                 </div>
               </div>
-              
+
               <div className="flex flex-col gap-3 pt-8">
-                <button 
+                <button
                   onClick={() => handleDownload(selectedCharge.image, selectedCharge.title)}
                   className="w-full py-4 rounded-xl bg-white text-black font-black uppercase tracking-widest text-[10px] shadow-xl flex items-center justify-center gap-2 hover:bg-brand-red hover:text-white transition-all active:scale-95"
                 >
                   <Download size={14} />
                   Download Charge
                 </button>
-                <button 
+                <button
                   onClick={() => setSelectedCharge(null)}
-                  className="w-full py-4 rounded-xl bg-zinc-800 text-zinc-400 font-black uppercase tracking-widest text-[10px] border border-zinc-700 flex items-center justify-center gap-2 hover:text-white transition-all active:scale-95"
+                  className="w-full py-4 rounded-xl bg-[var(--bg-input)] text-[var(--text-muted)] font-black uppercase tracking-widest text-[10px] border border-[var(--border-color)] flex items-center justify-center gap-2 hover:text-[var(--text-main)] transition-all active:scale-95"
                 >
                   Back to Articles
                 </button>

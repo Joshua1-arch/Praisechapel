@@ -19,8 +19,8 @@ const Gallery = () => {
     { id: 9, src: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=800', category: 'Conventions', title: 'Freedom Night', description: 'Breaking chains and entering into liberty.' },
   ];
 
-  const filteredImages = activeFilter === 'All' 
-    ? galleryImages 
+  const filteredImages = activeFilter === 'All'
+    ? galleryImages
     : galleryImages.filter(img => img.category === activeFilter);
 
   const nextImage = (e) => {
@@ -60,32 +60,31 @@ const Gallery = () => {
   };
 
   return (
-    <div className="flex flex-col bg-zinc-950 min-h-screen">
+    <div className="flex flex-col bg-[var(--bg-body)] min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 border-b border-zinc-900 bg-zinc-900/20 text-center">
+      <section className="relative py-20 border-b border-[var(--border-color)] bg-[var(--bg-body)] text-center">
         <div className="max-w-7xl mx-auto px-6 space-y-4">
-          <h1 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-black text-[var(--text-main)] uppercase tracking-tight">
             Ministry <span className="text-brand-red">Gallery</span>
           </h1>
-          <p className="text-zinc-400 max-w-xl mx-auto text-sm font-medium">
+          <p className="text-[var(--text-muted)] max-w-xl mx-auto text-sm font-medium">
             Capturing moments of worship and fellowship across our global community.
           </p>
         </div>
       </section>
 
       {/* Filter Bar */}
-      <section className="sticky top-[72px] md:top-[88px] z-40 bg-zinc-950 border-b border-zinc-900 py-4">
+      <section className="sticky top-[72px] md:top-[88px] z-40 bg-[var(--bg-body)] border-b border-[var(--border-color)] py-4">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-wrap justify-center gap-2">
             {categories.map(cat => (
               <button
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border ${
-                  activeFilter === cat 
-                    ? 'bg-brand-red border-brand-red text-white' 
-                    : 'bg-zinc-900 border-zinc-800 text-zinc-500 hover:text-white'
-                }`}
+                className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border ${activeFilter === cat
+                    ? 'bg-brand-red border-brand-red text-white'
+                    : 'bg-[var(--bg-input)] border-[var(--border-color)] text-[var(--text-muted)] hover:text-[var(--text-main)]'
+                  }`}
               >
                 {cat}
               </button>
@@ -99,14 +98,14 @@ const Gallery = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredImages.map((image) => (
-              <div 
+              <div
                 key={image.id}
-                className="relative aspect-square rounded-2xl overflow-hidden border border-zinc-900 bg-zinc-900 group cursor-pointer"
+                className="relative aspect-square rounded-2xl overflow-hidden border border-[var(--border-color)] bg-[var(--bg-card)] group cursor-pointer"
                 onClick={() => setSelectedImage(image)}
               >
-                <img 
-                  src={image.src} 
-                  alt={image.title} 
+                <img
+                  src={image.src}
+                  alt={image.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 {/* Minimal Hover Overlay */}
@@ -119,10 +118,10 @@ const Gallery = () => {
 
           {filteredImages.length === 0 && (
             <div className="py-40 text-center space-y-6">
-              <div className="w-20 h-20 bg-zinc-900 border border-zinc-800 rounded-full flex items-center justify-center mx-auto text-zinc-700">
+              <div className="w-20 h-20 bg-[var(--bg-input)] border border-[var(--border-color)] rounded-full flex items-center justify-center mx-auto text-[var(--text-muted)]">
                 <Camera size={40} />
               </div>
-              <p className="text-zinc-500 font-black uppercase tracking-widest text-xs">No memories found in this collection</p>
+              <p className="text-[var(--text-muted)] font-black uppercase tracking-widest text-xs">No memories found in this collection</p>
             </div>
           )}
         </div>
@@ -131,12 +130,12 @@ const Gallery = () => {
       {/* Lightbox */}
       {selectedImage && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div 
+          <div
             className="absolute inset-0 bg-black/95"
             onClick={() => setSelectedImage(null)}
           ></div>
-          
-          <button 
+
+          <button
             className="absolute top-6 right-6 z-[110] text-white/50 hover:text-white transition-colors"
             onClick={() => setSelectedImage(null)}
           >
@@ -144,13 +143,13 @@ const Gallery = () => {
           </button>
 
           {/* Controls */}
-          <button 
+          <button
             onClick={prevImage}
             className="absolute left-4 z-[110] p-4 text-white/30 hover:text-white transition-colors active:scale-90"
           >
             <ChevronLeft size={48} />
           </button>
-          <button 
+          <button
             onClick={nextImage}
             className="absolute right-4 z-[110] p-4 text-white/30 hover:text-white transition-colors active:scale-90"
           >
@@ -158,19 +157,19 @@ const Gallery = () => {
           </button>
 
           <div className="relative z-[105] max-w-5xl w-full flex flex-col items-center gap-6">
-            <img 
-              src={selectedImage.src} 
-              className="max-h-[75vh] w-auto rounded-lg shadow-2xl" 
-              alt={selectedImage.title} 
+            <img
+              src={selectedImage.src}
+              className="max-h-[75vh] w-auto rounded-lg shadow-2xl"
+              alt={selectedImage.title}
             />
-            
+
             <div className="flex flex-col items-center text-center gap-4">
               <div className="space-y-1">
                 <h2 className="text-xl font-black text-white uppercase tracking-tight">{selectedImage.title}</h2>
                 <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">{selectedImage.date || selectedImage.category}</span>
               </div>
-              
-              <button 
+
+              <button
                 onClick={() => handleDownload(selectedImage.src, selectedImage.title)}
                 className="px-8 py-3 rounded-full bg-white text-black font-black uppercase tracking-widest text-[10px] hover:bg-brand-red hover:text-white transition-all active:scale-95 flex items-center gap-2"
               >
